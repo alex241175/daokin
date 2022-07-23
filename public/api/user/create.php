@@ -12,7 +12,7 @@
     $password = $data->password;
     $role = $data->role;
 
-    $sql = "INSERT INTO User SET name = :name, password = :password, role = :role";
+    $sql = "INSERT INTO users SET name = :name, password = :password, role = :role";
 
     try {
         $database = new Database();

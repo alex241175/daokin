@@ -6,20 +6,33 @@
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     
     include_once '../../../database/config.php';
+    
+    // get data from http request body
     $data = json_decode(file_get_contents("php://input"));
+    $name = $data->name;
+    $host = $data->host;
+    $school = $data->school;
+    $address_c = $data->address_c;
     $id = $data->id;
 
-    $sql = "DELETE FROM users WHERE id = $id";
+    $sql = "UPDATE temples SET name = :name, host = :host, school = :school, address_c = :address_c WHERE id = '$id'";
 
-    try{
+    try {
         $database = new Database();
         $db = $database->getConnection();
-
         $stmt = $db->prepare($sql);
+
+        // bind data
+        $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":host", $host);
+        $stmt->bindParam(":school", $school);
+        $stmt->bindParam(":address_c", $address_c);
+
         $stmt->execute();
-        $db = null;
-        echo json_encode(array("message"=>"user deleted"));
-    } catch(PDOException $e){
+        echo json_encode(array("message"=>"更新完成。"));
+
+    } catch (PDOException $e){
+
         echo json_encode(array("message"=>$e->getMessage()));
     }
 ?>

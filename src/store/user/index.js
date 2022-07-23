@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import config from '../../config.js'
 
 Vue.use(Vuex)
 
@@ -7,14 +8,10 @@ export default{
 
   state: {
     users: [],
-    api_url : process.env.NODE_ENV == "development" ? "http://localhost:9000/public/api/user/" : "./api/user/",
   },
   getters: {
     users(state) {
       return state.users;
-    },
-    api_url(state) {
-      return state.api_url;
     },
   },
   mutations: {
@@ -28,8 +25,7 @@ export default{
       getters,
       dispatch
     },payload) {
-      const response = await fetch(getters.api_url + 'read.php');
-
+      const response = await fetch(config.api_host + 'user/read.php');
       const data = await response.json();
       commit('setUsers', data);
     },
@@ -38,7 +34,7 @@ export default{
       getters,
       dispatch
     },payload) {
-      const response = await fetch(getters.api_url + 'create.php', {
+      const response = await fetch(config.api_host + 'user/create.php', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -56,7 +52,7 @@ export default{
       dispatch
     },payload) {
      
-      const response = await fetch(getters.api_url + 'delete.php', {
+      const response = await fetch(config.api_host + 'user/delete.php', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -73,9 +69,8 @@ export default{
       getters,
       dispatch
     },payload) {
-      console.log(payload)
       
-      const response = await fetch(getters.api_url + 'update.php', {
+      const response = await fetch(config.api_host  + 'user/update.php', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -83,9 +78,10 @@ export default{
         },
         body: JSON.stringify(payload)
       });
-      dispatch("getUsers")
       const data = await response.json()
       console.log(data.message)
+
+      dispatch("getUsers")
     },
   },
 

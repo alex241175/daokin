@@ -10,6 +10,8 @@
         </v-toolbar-title>
 
       <v-spacer></v-spacer>
+      <v-btn text to="/rites" exact>儀式</v-btn>
+      <v-btn text to="/temples" exact>佛壇</v-btn>
      <v-btn text to="/users" exact>人員</v-btn>
     </v-app-bar>
 

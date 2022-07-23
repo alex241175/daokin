@@ -7,6 +7,8 @@ import vuetify from './plugins/vuetify'
 import '@fortawesome/fontawesome-free/css/all.css'
 
 Vue.config.productionTip = false
+// Vue.prototype.$api_host = process.env.NODE_ENV == "development" ? "http://localhost:9000/public/api/" : "./api/",
+
 Vue.use(vuetify, {
   iconfont: 'fa'
  })

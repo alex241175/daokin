@@ -3,5 +3,5 @@ module.exports = defineConfig({
   transpileDependencies: [
     'vuetify'
   ],
-  publicPath: ''
+  // publicPath: '' // put in for deployment with php server
 })

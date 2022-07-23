@@ -3,7 +3,7 @@
     header("Content-Type: application/json; charset=UTF-8");
     include_once '../../../database/config.php';
 
-    $sql = "SELECT * FROM users";
+    $sql = "SELECT * FROM temples";
 
     try{
         $database = new Database();
@@ -15,6 +15,7 @@
         echo json_encode($items);
 
     }catch(PDOException $e){
-        echo json_encode(array("message"=>$e->getMessage()));    }
+        echo json_encode(array("message"=>$e->getMessage()));
+    }
   
 ?>

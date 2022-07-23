@@ -9,7 +9,7 @@
     $data = json_decode(file_get_contents("php://input"));
     $id = $data->id;
 
-    $sql = "DELETE FROM users WHERE id = $id";
+    $sql = "DELETE FROM rites WHERE id = '$id'";
 
     try{
         $database = new Database();
@@ -18,7 +18,7 @@
         $stmt = $db->prepare($sql);
         $stmt->execute();
         $db = null;
-        echo json_encode(array("message"=>"user deleted"));
+        echo json_encode(array("message"=>"刪除完成。"));
     } catch(PDOException $e){
         echo json_encode(array("message"=>$e->getMessage()));
     }
