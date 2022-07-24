@@ -8,8 +8,7 @@
 
     $id = isset($_GET['id']) ? $_GET['id'] : die();
   
-    $sql = "SELECT rites.*, temples.name AS temple FROM rites INNER JOIN temples 
-    WHERE rites.temple_id = temples.id AND rites.id = '$id'";
+    $sql = "SELECT daokins.*, temples.name AS temple FROM daokins INNER JOIN temples WHERE daokins.temple_id = temples.id AND daokins.id = '$id'";
 
     try{
         $database = new Database();

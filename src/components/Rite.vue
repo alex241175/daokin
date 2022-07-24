@@ -2,7 +2,7 @@
     <div>
         <v-card  class="ma-2 pa-2" outlined color="transparent">
             <v-card-title>
-                <h4>儀式編號：{{ rite.id + ' [' + rite.temple_id + ']' }}</h4>
+                <h4>儀式 {{ rite.id + ' [' + rite.temple_id + '-' + rite.temple + ']' }}</h4>
             </v-card-title>
             <v-card-text>
                 <v-row>
@@ -52,7 +52,9 @@
                 </v-row>
                 <v-row>
                     <v-col cols="10">
-                        <v-text-field label="表文地址" v-model="rite.address_c"></v-text-field>
+                        <!-- <v-text-field label="表文地址" v-model="rite.address_c"></v-text-field> -->
+                         <v-select :items="address_c" label="表文地址" autocomplete hide-selected
+                            v-model="rite.address_c"></v-select>
                     </v-col>
                     <v-col cols="2">
                         <v-text-field label="點數" v-model="rite.total"></v-text-field>
@@ -65,6 +67,9 @@
                 <v-btn to="/rites"><v-icon>fa-solid fa-xmark</v-icon></v-btn>
             </v-card-actions>
         </v-card>
+        <v-card class="ml-4 pa-2" outlined color="transparent">
+            <Daokins :rite_id="id" @showMessage="snackbar=true"/>
+        </v-card>
         <v-snackbar v-model="snackbar" color="black" bottom>{{ snackbarText }}
             <template v-slot:action="{ attrs }">
                 <v-btn text v-bind="attrs" @click="snackbar = false">
@@ -76,6 +81,8 @@
 </template>
 
 <script>
+
+import Daokins from './Daokins.vue'
 
 export default {
   name: 'Rite',
@@ -90,11 +97,14 @@ export default {
   async created(){
       await this.$store.dispatch('getRite', this.id)
   },
+  components: {
+      Daokins
+  },
   methods: {
       async updateRite(){
             await this.$store.dispatch('updateRite', this.rite)
             this.snackbar = true
-      }
+      },
   },
   computed: {
     rite() {
@@ -102,6 +112,9 @@ export default {
     },
     years() {
         return this.$store.getters.years
+    },
+    address_c(){
+        return this.$store.getters.temples.find(t=> t.id == this.rite.temple_id).address_c
     },
     snackbarText() {
       return this.$store.getters.message

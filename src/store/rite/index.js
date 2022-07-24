@@ -11,7 +11,7 @@ export default{
     rites: [],
     years:[],
     filterYear:'',
-    filterTemple:'',
+    filterTemple:{},
     months:['壹','貳','叄','肆','伍','陸','柒','捌','玖','拾','拾壹','拾貳'],
     hours:['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'],
   },

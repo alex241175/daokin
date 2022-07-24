@@ -1,16 +1,17 @@
 <template>
    <v-container>
     <v-row class="ma-2">
-        <v-col cols="4">
+        <v-col cols="3">
             <v-text-field label="年份" v-model="filterYear" clearable></v-text-field>
         </v-col>
-         <v-col cols="4">
-            <v-autocomplete :items="temples" label="壇號" autocomplete hide-selected 
-                  v-model="filterTemple" item-text="id" item-value="id" menu-props="auto" clearable>
+         <v-col cols="6">
+            <v-autocomplete :items="temples" label="壇號" autocomplete hide-selected
+                  v-model="filterTemple" return-object
+                  :item-text="getFieldText" menu-props="auto" clearable>
             </v-autocomplete>
             <!-- <v-text-field label="佛壇" v-model="filterTemple" clearable></v-text-field> -->
         </v-col>
-        <v-col cols="4" class="text-right">
+        <v-col cols="3" class="text-right">
             <v-btn text exact @click="getRites"><v-icon>fa-solid fa-angle-right</v-icon></v-btn>
             <v-btn text exact @click="createRite"><v-icon>fa-solid fa-plus</v-icon></v-btn>
         </v-col>
@@ -75,20 +76,24 @@ export default {
       await this.$store.dispatch('getTemples')
   },
   methods: {
+    getFieldText(item)
+    {
+      return `${item.id} ${item.name} - ${item.host[0]}`
+    },
     openRite(id) {
       this.$router.push('/rite/' + id);
     },
     async getRites(){
         if (!this.filterYear && !this.filterTemple){
-          await this.$store.commit('setRites', [])
+          this.$store.commit('setRites', [])
           return
         }
         // to convert null to empty string, vuetify clearable set to null
         if (!this.filterYear) this.filterYear = ""
-        if (!this.filterTemple) this.filterTemple = ""
+        if (!this.filterTemple) this.filterTemple = {id:""}
 
         this.$store.commit('setFilterYear', this.filterYear)
-        this.$store.commit('setFilterTemple', this.filterTemple)
+        this.$store.commit('setFilterTemple', this.filterTemple.id)
         await this.$store.dispatch('getRites')
     },
     async deleteRite(rite){

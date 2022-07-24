@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import user from './user'
 import temple from './temple'
 import rite from './rite'
+import daokin from './daokin'
 
 Vue.use(Vuex)
 
@@ -26,5 +27,6 @@ export const store = new Vuex.Store({
     user,
     temple,
     rite,
+    daokin,
   }
 })
