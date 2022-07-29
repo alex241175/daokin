@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card  class="ma-2 pa-2" outlined color="transparent">
+        <v-card  class="ma-2 pa-2 grey lighten-3" outlined>
             <v-card-title>
                 <h4>儀式 {{ rite.id + ' [' + rite.temple_id + '-' + rite.temple + ']' }}</h4>
             </v-card-title>
@@ -68,7 +68,7 @@
             </v-card-actions>
         </v-card>
         <v-card class="ml-4 pa-2" outlined color="transparent">
-            <Daokins :rite_id="id" @showMessage="snackbar=true"/>
+            <Daokins :rite_id="id" :rite="rite" @showMessage="snackbar=true" ref="daokins"/>
         </v-card>
         <v-snackbar v-model="snackbar" color="black" bottom>{{ snackbarText }}
             <template v-slot:action="{ attrs }">
@@ -124,3 +124,8 @@ export default {
 }
 
 </script>
+<style>
+.row .col {
+  height: 60px !important;
+}
+</style>

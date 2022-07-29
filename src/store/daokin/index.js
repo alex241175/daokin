@@ -9,10 +9,14 @@ export default{
   state: {
     daokin:{},
     daokins: [],
+    foundDaokins: [],
   },
   getters: {
     daokins(state) {
       return state.daokins;
+    },
+    foundDaokins(state) {
+      return state.foundDaokins
     },
     daokin(state) {
       return state.daokin;
@@ -24,6 +28,9 @@ export default{
     },
     setDaokins(state, payload) {
       state.daokins = payload
+    },
+    setFoundDaokins(state, payload) {
+      state.foundDaokins = payload
     },
   },
   actions: {
@@ -46,6 +53,16 @@ export default{
       const response = await fetch(url);
       var data = await response.json()
       commit('setDaokin', data);
+    },
+    async findDaokins({
+      commit,
+      getters, 
+      dispatch
+    },payload) {
+      const url = config.api_host + 'daokin/find.php?daokin=' + payload.daokin + '&introducer=' + payload.introducer
+      const response = await fetch(url);
+      var data = await response.json()
+      commit('setFoundDaokins', data);
     },
     async createDaokin({  
       commit,

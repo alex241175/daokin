@@ -83,9 +83,9 @@ export default {
    components: {
       TempleDialog
   },
-  created() {
-    this.$store.dispatch('getTemples')
-  },
+  // created() {
+  //   this.$store.dispatch('getTemples')
+  // },
   methods: {
     openTempleDialog(temple){
         if (temple.id){  // editing

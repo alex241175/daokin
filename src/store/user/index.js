@@ -8,15 +8,22 @@ export default{
 
   state: {
     users: [],
+    user: null,  // current logged in user
   },
   getters: {
     users(state) {
       return state.users;
     },
+    user(state) {
+      return state.user;
+    },
   },
   mutations: {
     setUsers(state, payload) {
       state.users = payload
+    },
+    setUser(state, payload) {
+      state.user = payload
     },
   },
   actions: {
@@ -83,6 +90,33 @@ export default{
 
       dispatch("getUsers")
     },
+    async signIn({  // 
+      commit,
+      getters,
+      dispatch
+    },payload) {
+      
+      const response = await fetch(config.api_host  + 'user/signin.php', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+      const data = await response.json()
+      if (data.message == 'success'){
+          commit('setUser', payload);
+      }
+      commit('setMessage', data.message);
+    },
+    async signOut({  // 
+      commit,
+      getters,
+      dispatch
+    },payload) {
+      commit('setUser', null);
+    }
   },
 
 }

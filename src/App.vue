@@ -10,9 +10,14 @@
         </v-toolbar-title>
 
       <v-spacer></v-spacer>
+      <v-btn text to="/find" exact>查找</v-btn>
       <v-btn text to="/rites" exact>儀式</v-btn>
       <v-btn text to="/temples" exact>佛壇</v-btn>
-     <v-btn text to="/users" exact>人員</v-btn>
+      <v-btn text to="/users" exact>人員</v-btn>
+      <v-btn v-if="!userIsAuthenticated" text to="/signin" exact>Sign In</v-btn>
+      <v-btn v-if="userIsAuthenticated" text @click="signOut" exact>Sign Out</v-btn>
+      <span v-if="userIsAuthenticated">{{ username }}</span>
+
     </v-app-bar>
 
     <v-main>
@@ -29,14 +34,35 @@ export default {
   data: () => ({
     //
   }),
+  created() {
+    this.$store.dispatch('getTemples')
+  },
+   computed:{
+    username(){
+      return this.$store.getters.user.username
+    },
+    userIsAuthenticated() {
+      return (
+        this.$store.getters.user !== null &&
+        this.$store.getters.user !== undefined
+      );
+    },
+  },
+  methods:{
+    signOut(){
+        this.$store.dispatch('signOut')
+        this.$router.push('/signin');
+    }
+
+  }
 };
 </script>
 <style>
     .hand{
       cursor: pointer;
     }
-    .v-data-table td {
-      font-size: 1rem !important;
+    body {
+      font-size: 0.8rem !important;
     }
 
 </style>
