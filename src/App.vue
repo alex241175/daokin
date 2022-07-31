@@ -13,7 +13,8 @@
       <v-btn text to="/find" exact>查找</v-btn>
       <v-btn text to="/rites" exact>儀式</v-btn>
       <v-btn text to="/temples" exact>佛壇</v-btn>
-      <v-btn text to="/users" exact>人員</v-btn>
+      <v-btn v-if="userIsAdmin" text to="/users" exact>人員</v-btn>
+      <v-btn v-if="userIsAdmin" text to="/export" exact>Excel</v-btn>
       <v-btn v-if="!userIsAuthenticated" text to="/signin" exact>Sign In</v-btn>
       <v-btn v-if="userIsAuthenticated" text @click="signOut" exact>Sign Out</v-btn>
       <span v-if="userIsAuthenticated">{{ username }}</span>
@@ -45,6 +46,11 @@ export default {
       return (
         this.$store.getters.user !== null &&
         this.$store.getters.user !== undefined
+      );
+    },
+    userIsAdmin() {
+      return (
+        this.$store.getters.user !== null && this.$store.getters.user.role == 'admin'
       );
     },
   },

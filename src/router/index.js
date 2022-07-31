@@ -7,6 +7,7 @@ import Rites from '../components/Rites.vue'
 import Rite from '../components/Rite.vue'
 import Find from '../components/Find.vue'
 import SignIn from '../components/SignIn.vue'
+import Export from '../components/Export.vue'
 import AuthGuard from './auth-guard';
 
 Vue.use(VueRouter)
@@ -18,6 +19,7 @@ const routes = [
   { path: '/rites', name: 'rites', component: Rites, beforeEnter: AuthGuard},
   { path: '/rite/:id', name: 'rite', props: true, component: Rite, beforeEnter: AuthGuard},
   { path: '/find', name: 'find', component: Find, beforeEnter: AuthGuard },
+  { path: '/export', name: 'export', component: Export, beforeEnter: AuthGuard },
   { path: '/signin', name: 'signin', component: SignIn },
 ]
 

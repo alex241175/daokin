@@ -44,6 +44,16 @@ export default{
       const data = await response.json()
       commit('setDaokins', data);
     },
+    async getAllDaokins({
+      commit,
+      getters, 
+      dispatch
+    },payload) {
+      const url = config.api_host + 'daokin/read_all.php'
+      const response = await fetch(url);
+      const data = await response.json()
+      commit('setDaokins', data);
+    },
     async getDaokin({
       commit,
       getters, 

@@ -106,7 +106,7 @@ export default{
       });
       const data = await response.json()
       if (data.message == 'success'){
-          commit('setUser', payload);
+          commit('setUser', data.user);
       }
       commit('setMessage', data.message);
     },

@@ -33,7 +33,7 @@
             if (count($items) == 0 ){
                 echo json_encode(array("message"=>"password incorrect"));
             }else{
-                echo json_encode(array("message"=>"success"));
+                echo json_encode(array("message"=>"success", "user"=>$items[0]));
             }
         }
 
